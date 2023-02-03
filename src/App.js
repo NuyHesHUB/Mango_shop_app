@@ -1,23 +1,13 @@
-import logo from './logo.svg';
+
 import './App.css';
+import React from 'react';
+import Mainpage from './components/Mainpage';
 
 function App() {
+  /* https://30fee64e-3a4a-4cb2-815b-746a1a61d93f.mock.pstmn.io */
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Mainpage/>
     </div>
   );
 }
