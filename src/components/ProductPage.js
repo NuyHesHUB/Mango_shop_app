@@ -3,25 +3,39 @@ import {useParams, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import "./ProductPage.scss";
 import { API_URL } from '../config/constants';
-import {Button, message} from 'antd'
+import {Button, message} from 'antd';
 
 const ProductPage = () => {
     const{id} =useParams();
     const Navigate=useNavigate();
     const[product,setProduct] = useState(null);
-    useEffect(()=>{
+    const getProduct= () =>{
         axios.get(`${API_URL}/products/${id}`)
         .then((result)=>{
             console.log(result.data);
             setProduct(result.data.product);
-            
         }).catch((error)=>{
             console.error(error)
         })
-    },[id])
+    }
+    useEffect(()=>{
+        getProduct();
+    }, [])
     if(product===null){
         return <h1>상품정보를 받고 있습니다.</h1>
     }
+
+    const onClickPurchase = () =>{
+        axios.post(`${API_URL}/purchase/${id}`)
+        .then((result)=>{
+            message.info('결제가 완료 되었습니다')
+            getProduct();
+        })
+        .catch((error)=>{
+            message.error( `에러가 발생했습니다. ${error.message}}`)
+        });
+    }
+   
 
     return (
         <div>
@@ -37,7 +51,9 @@ const ProductPage = () => {
                 <div id="name">{product.name}</div>
                 <div id="price">{product.price}원</div>
                 <div id="createAt">23.02.03</div>
-                <Button type="primary" danger={true} size="large" className='payment'>즉시결제하기</Button>
+                <Button type="primary" className="purchase" danger={true} size="large" onClick={onClickPurchase} disabled={product.soldout===1 ? true : false}>
+                    즉시결제하기
+                </Button>
                 <div id="description">{product.description}</div>
             </div>
         </div>

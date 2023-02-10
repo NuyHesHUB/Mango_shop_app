@@ -1,6 +1,6 @@
 #back-btn{display: flex; margin: 20px auto; padding: 10px 20px; background: #faa9a9; border: none; outline: none;}
-.image-box{ height: 300px; text-align: center; 
-    img{height: 100%; }
+.image-box{max-height: 300px; max-width: 100%; width: 100%; text-align: center; 
+    img{height: 100%; max-width: 300px;}
 }
 #profile-box{
     padding: 16px;
